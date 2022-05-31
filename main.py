@@ -1,4 +1,6 @@
-# gunicorn added as a package, with the Procfile telling horuku to use gunicorn and ain.py to deploy app
+# gunicorn added as a package, with the Procfile telling Heroku to use gunicorn and main.py to deploy app
+import os
+
 from flask import Flask, render_template, redirect, url_for, flash, abort
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
@@ -13,7 +15,8 @@ from functools import wraps
 
 app = Flask(__name__)
 # For a real program, the below key would be best places in an .env file
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+# For Heruko, env variables are found in the app's 'Settings' page
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
@@ -28,7 +31,7 @@ gravatar = Gravatar(app,
                     base_url=None)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
