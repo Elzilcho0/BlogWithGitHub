@@ -1,3 +1,4 @@
+# gunicorn added as a package, with the Procfile telling horuku to use gunicorn and ain.py to deploy app
 from flask import Flask, render_template, redirect, url_for, flash, abort
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
